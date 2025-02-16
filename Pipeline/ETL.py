@@ -4,6 +4,24 @@ import pandas as pd
 
 from sqlalchemy import create_engine
 
+import sqlite3
+
+import os
+
+import subprocess
+
+
+# db_path = "../Database/my_stok_data.db"
+
+# subprocess.run(f'icacls "{db_path}" /grant Everyone:F', shell=True)
+
+
+# if os.path.exists(db_path):
+#     os.chmod(db_path, 0o777)  # Read & Write for everyone
+#     print(f"Permissions updated for {db_path}")
+# else:
+#     print("Database file not found!")
+
 api_key = "WAGQE2A81MNIVJA7"
 API_URL = "https://www.alphavantage.co/query"
 params = {
@@ -37,3 +55,16 @@ def transform(data: dict) -> pd.DataFrame:
     df = pd.DataFrame(records, columns=[
                       "Date", "Open", "High", "Low", "Close", "Volume", "Avg Price"])
     return df
+
+def load(df: pd.DataFrame)-> None:
+    """ Load data in sqllite database
+    """
+    
+    disk_engine = create_engine('sqlite:///../my_stok_data2.db')
+    # name of the table is kept 'stock_data'
+    df.to_sql('stock_data', disk_engine, if_exists='replace')
+    
+# loading the data by calling the functions in their respective sequesnce
+data = extract()
+df = transform(data)
+load(df)

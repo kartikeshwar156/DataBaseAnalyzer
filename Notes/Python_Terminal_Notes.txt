@@ -1,0 +1,5 @@
+if python --version is not working, 
+try py --version
+
+and if py --version is working , you can just download libraries like
+pandas using "py -m pip install pandas", if "pip install pandas" is not working

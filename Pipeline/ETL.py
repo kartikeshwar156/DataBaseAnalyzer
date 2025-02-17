@@ -60,7 +60,7 @@ def load(df: pd.DataFrame)-> None:
     """ Load data in sqllite database
     """
     
-    disk_engine = create_engine('sqlite:///../my_stok_data2.db')
+    # disk_engine = create_engine('sqlite:///../my_stok_data2.db')
     db_path='my_stok_data2.db'
     conn=sqlite3.connect(db_path)
     table_name='new_stock_table'

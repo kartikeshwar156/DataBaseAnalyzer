@@ -2,6 +2,8 @@ import requests
 import json
 import sqlite3
 
+from Pipeline.ETL import extract, transform, load 
+
 
 url = "https://api.arliai.com/v1/chat/completions"
 

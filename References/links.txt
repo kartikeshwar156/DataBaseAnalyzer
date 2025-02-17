@@ -1,0 +1,6 @@
+https://medium.com/@kamaljp/implementing-llm-agents-to-do-crud-ops-on-sql-db-61d393259f91
+
+link of how to use agents in order management system, and database used is sqlite
+
+------------------
+

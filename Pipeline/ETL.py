@@ -61,8 +61,12 @@ def load(df: pd.DataFrame)-> None:
     """
     
     disk_engine = create_engine('sqlite:///../my_stok_data2.db')
+    db_path='my_stok_data2.db'
+    conn=sqlite3.connect(db_path)
+    table_name='new_stock_table'
+    df.to_sql(table_name, conn, if_exists='replace', index=False)
     # name of the table is kept 'stock_data'
-    df.to_sql('stock_data', disk_engine, if_exists='replace')
+    # df.to_sql('stock_data2', disk_engine, if_exists='replace')
     
 # loading the data by calling the functions in their respective sequesnce
 data = extract()

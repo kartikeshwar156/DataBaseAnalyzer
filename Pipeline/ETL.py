@@ -22,17 +22,16 @@ import subprocess
 # else:
 #     print("Database file not found!")
 
-api_key = "WAGQE2A81MNIVJA7"
 API_URL = "https://www.alphavantage.co/query"
 params = {
     "function": "TIME_SERIES_DAILY",
     "symbol": "zomato.BSE",
     "outputsize": "full",
-    "apikey": "WAGQE2A81MNIVJA7"
+    "apikey": "6KVSTQT12KCYAY1M"
 }
 
 
-def extract() -> dict:
+def extract(API_URL, params) -> dict:
     # API_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=CochinShip.BSE&outputsize=full&apikey=WAGQE2A81MNIVJA7"
     data = requests.get(API_URL, params=params).json()
     return data
@@ -56,19 +55,22 @@ def transform(data: dict) -> pd.DataFrame:
                       "Date", "Open", "High", "Low", "Close", "Volume", "Avg Price"])
     return df
 
-def load(df: pd.DataFrame)-> None:
+def load(df: pd.DataFrame, db_path)-> None:
     """ Load data in sqllite database
     """
     
     # disk_engine = create_engine('sqlite:///../my_stok_data2.db')
-    db_path='my_stok_data2.db'
+    
     conn=sqlite3.connect(db_path)
     table_name='new_stock_table'
     df.to_sql(table_name, conn, if_exists='replace', index=False)
+    conn.close
     # name of the table is kept 'stock_data'
     # df.to_sql('stock_data2', disk_engine, if_exists='replace')
-    
+
+db_path='my_stok_data2.db'
 # loading the data by calling the functions in their respective sequesnce
-data = extract()
+data = extract(API_URL, params)
+print(data)
 df = transform(data)
-load(df)
+load(df, db_path)

@@ -3,3 +3,11 @@ try py --version
 
 and if py --version is working , you can just download libraries like
 pandas using "py -m pip install pandas", if "pip install pandas" is not working
+-----------------------------
+pip install flask didn't worked, but ' py -m pip install flask ' worked, I was getting error-
+
+Fatal error in launcher: Unable to create process using '"C:\Users\dell\python.exe"  "C:\Users\dell\Scripts\pip.exe" install flask': The system cannot find the file specified.
+----------------------------------
+
+for running the python file from root folder,  I used
+py Src/App.py
